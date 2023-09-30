@@ -1,6 +1,8 @@
 const dotenv = require('dotenv');
 dotenv.config();
 
+const { blogAnalysis } = require('../analysis/blogAnalysis');
+
 const options = {
     method: 'GET',
     headers: {
@@ -21,7 +23,10 @@ async function getBlogs(req, res)
         }
     
         const blogData = await response.json();
-        res.json(blogData);
+
+        const newblogData = await blogAnalysis(blogData);
+
+        res.json(newblogData);
         
     } catch(err)
     {
