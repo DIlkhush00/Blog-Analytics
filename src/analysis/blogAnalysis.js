@@ -23,9 +23,14 @@ function titlesWithPrivacy(blogs)
 {
     // finding the title with the word 'privacy'
     let keyword = "privacy";
-    let titlesWithPrivacy = _.filter(blogs, blog => _.includes(_.toLower(blog.title), keyword));
+    let titlesWithPrivacy = _.filter(blogs, blog => _.includes(_.toLower(blog.title), _.toLower(keyword)));
     return _.size(titlesWithPrivacy);
 }
 
+function search(blogs, keyword)
+{
+    let data = _.filter(blogs, blog => _.includes(_.toLower(blog.title), _.toLower(keyword)));
+    return data;
+}
 
-module.exports = { blogAnalysis };
+module.exports = { blogAnalysis, search };
