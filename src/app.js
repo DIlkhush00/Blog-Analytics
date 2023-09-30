@@ -10,8 +10,7 @@ const router = require('./routes/blogRoutes');
 // Start up an instance of app
 const app = express();
 
-// Routes goes here...
-
+// Routing setup
 app.use('/api', router);
 
 

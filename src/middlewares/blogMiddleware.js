@@ -49,9 +49,17 @@ async function searchBlogs(req, res)
     
         const blogData = await response.json();
         
-        const result = search(blogData.blogs, req.query.query); // passing the blogs array
+        const keyword = req.query.query;
+        const result = search(blogData.blogs, keyword); // passing the blogs array
 
-        res.json({result});
+        if(result.length != 0)
+        {
+            res.json({result});
+        }
+        else
+        {
+            res.status(404).json({error: `Could not find any blog containing '${keyword}' keyword`})
+        }
         
     } catch(err)
     {
