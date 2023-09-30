@@ -1,7 +1,7 @@
 const dotenv = require('dotenv');
 dotenv.config();
 
-const { blogAnalysis, search } = require('../analysis/blogAnalysis');
+const { memo_blogAnalysis, memo_search } = require('../analysis/blogAnalysis');
 
 const options = {
     method: 'GET',
@@ -24,7 +24,7 @@ async function getBlogs(req, res)
     
         const blogData = await response.json();
 
-        const newblogData = blogAnalysis(blogData);
+        const newblogData = memo_blogAnalysis(blogData);
 
         res.json(newblogData);
         
@@ -50,7 +50,7 @@ async function searchBlogs(req, res)
         const blogData = await response.json();
         
         const keyword = req.query.query;
-        const result = search(blogData.blogs, keyword); // passing the blogs array
+        const result = memo_search(blogData.blogs, keyword); // passing the blogs array
 
         if(result.length != 0)
         {
@@ -58,7 +58,7 @@ async function searchBlogs(req, res)
         }
         else
         {
-            res.status(404).json({error: `Could not find any blog containing '${keyword}' keyword`})
+            res.status(404).json({error: `Could not find any blog containing the keyword '${keyword}'`});
         }
         
     } catch(err)

@@ -2,7 +2,7 @@ const _ = require('lodash');
 
 const data = {};
 
-const blogAnalysis = (blogs) => {
+function blogAnalysis(blogs) {
     // total number of blogs
     data['total'] = _.size(blogs.blogs);
 
@@ -33,4 +33,8 @@ function search(blogs, keyword)
     return data;
 }
 
-module.exports = { blogAnalysis, search };
+const memo_blogAnalysis = _.memoize(blogAnalysis);
+const memo_search = _.memoize(search, (blogs, keyword) => `${JSON.stringify(blogs)}-${keyword}`);
+
+
+module.exports = { memo_blogAnalysis, memo_search };
